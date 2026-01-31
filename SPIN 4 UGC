@@ -1,0 +1,252 @@
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.9) ~  Much Love, Ferib 
+
+]]--
+
+local v0 = game:GetService("Players");
+local v1 = game:GetService("ReplicatedStorage");
+local v2 = game:GetService("UserInputService");
+local v3 = v0.LocalPlayer;
+local v4 = v1.Packages._Index["sleitnick_knit@1.6.0"].knit;
+local v5 = v4.Services.SpinService;
+local v6 = v5.RF.Spin;
+local v7 = false;
+local v8 = 952.55 - (802 + 150);
+local v9 = 13 - 8;
+local v10 = 0 - 0;
+local v11 = 0 + 0;
+local v12 = os.clock();
+local v13 = Instance.new("ScreenGui");
+v13.Name = "DavislyHub";
+v13.ResetOnSpawn = false;
+v13.Parent = v3:WaitForChild("PlayerGui");
+local v17 = Instance.new("Frame");
+v17.Size = UDim2.fromOffset(200, 1097 - (915 + 82));
+v17.Position = UDim2.fromScale(0.5 - 0, 0.5 + 0);
+v17.AnchorPoint = Vector2.new(0.5 - 0, 1187.5 - (1069 + 118));
+v17.BackgroundColor3 = Color3.fromRGB(68 - 38, 65 - 35, 40);
+v17.BorderSizePixel = 0 + 0;
+local v23 = Instance.new("UICorner");
+v23.CornerRadius = UDim.new(0, 21 - 9);
+v23.Parent = v17;
+local v26 = Instance.new("TextLabel");
+v26.Size = UDim2.new(1 + 0, 0, 791 - (368 + 423), 87 - 59);
+v26.Position = UDim2.fromOffset(18 - (10 + 8), 19 - 14);
+
+v26.BackgroundTransparency = 443 - (416 + 26);
+v26.Font = Enum.Font.GothamBold;
+v26.TextSize = 57 - 39;
+v26.TextColor3 = Color3.fromRGB(0, 180, 110 + 145);
+v26.Text = "Davisly Hub";
+v26.Parent = v17;
+local v36 = Instance.new("TextButton");
+v36.Size = UDim2.new(1 - 0, -20, 438 - (145 + 293), 32);
+v36.Position = UDim2.fromOffset(440 - (44 + 386), 1524 - (998 + 488));
+v36.Font = Enum.Font.GothamBold;
+v36.TextSize = 6 + 10;
+v36.BackgroundColor3 = Color3.fromRGB(40, 33 + 7, 822 - (201 + 571));
+v36.BorderSizePixel = 1138 - (116 + 1022);
+local v43 = Instance.new("UICorner");
+v43.CornerRadius = UDim.new(0 - 0, 8);
+v43.Parent = v36;
+local v46 = Instance.new("TextLabel");
+v46.Size = UDim2.new(1 + 0, -20, 0, 73 - 53);
+v46.Position = UDim2.fromOffset(10, 266 - 191);
+v46.BackgroundTransparency = 1;
+v46.Font = Enum.Font.Gotham;
+v46.TextSize = 873 - (814 + 45);
+v46.TextColor3 = Color3.fromRGB(492 - 292, 200, 200);
+v46.Text = "SPS: 0.00";
+v46.Parent = v17;
+local function v56()
+	if v7 then
+		local v70 = 0 + 0;
+		while true do
+			if (v70 == 0) then
+				v36.Text = "AUTO SPIN: ON";
+				v36.TextColor3 = Color3.fromRGB(0 + 0, 1140 - (261 + 624), 140);
+				break;
+			end
+		end
+	else
+		local v71 = 0 - 0;
+		while true do
+			if (v71 == 0) then
+				v36.Text = "AUTO SPIN: OFF";
+				v36.TextColor3 = Color3.fromRGB(1335 - (1020 + 60), 1513 - (630 + 793), 304 - 214);
+				break;
+			end
+		end
+	end
+end
+v36.MouseButton1Click:Connect(function()
+	local v62 = 0;
+	local v63;
+	while true do
+		if (v62 == (0 - 0)) then
+			v63 = 0;
+			while true do
+				if (v63 == (0 + 0)) then
+					v7 = not v7;
+					v56();
+					break;
+				end
+			end
+			break;
+		end
+	end
+end);
+v36.Parent = v17;
+v17.Parent = v13;
+local v59 = false;
+local v60;
+local v61;
+v17.InputBegan:Connect(function(v64)
+	if ((v64.UserInputType == Enum.UserInputType.MouseButton1) or (v64.UserInputType == Enum.UserInputType.Touch)) then
+		local v72 = 0 - 0;
+		while true do
+			if (v72 == (1748 - (760 + 987))) then
+				v61 = v17.Position;
+				v64.Changed:Connect(function()
+					if (v64.UserInputState == Enum.UserInputState.End) then
+						v59 = false;
+					end
+				end);
+				break;
+			end
+			if ((1913 - (1789 + 124)) == v72) then
+				v59 = true;
+				v60 = v64.Position;
+				v72 = 767 - (745 + 21);
+			end
+		end
+	end
+end);
+v2.InputChanged:Connect(function(v65)
+	if (v59 and ((v65.UserInputType == Enum.UserInputType.MouseMovement) or (v65.UserInputType == Enum.UserInputType.Touch))) then
+		local v73 = 0 + 0;
+		local v74;
+		while true do
+			if (v73 == (0 - 0)) then
+				v74 = v65.Position - v60;
+				v17.Position = UDim2.new(v61.X.Scale, v61.X.Offset + v74.X, v61.Y.Scale, v61.Y.Offset + v74.Y);
+				break;
+			end
+		end
+	end
+end);
+task.spawn(function()
+	while true do
+		if v7 then
+			local v75 = 0 - 0;
+			local v76;
+			local v77;
+			local v78;
+			local v79;
+			while true do
+				if (v75 == 1) then
+					if v77 then
+						local v88 = 0;
+						while true do
+							if (v88 == 0) then
+								v11 += 1
+								v10 = 0 + 0;
+								break;
+							end
+						end
+					else
+						local v89 = 0 + 0;
+						while true do
+							if (v89 == 1) then
+								task.wait(1056 - (87 + 968));
+								break;
+							end
+							if (v89 == (0 - 0)) then
+								v10 += (1 + 0)
+								if (v10 >= v9) then
+									local v90 = 0;
+									local v91;
+									while true do
+										if (v90 == (0 - 0)) then
+											v91 = 1413 - (447 + 966);
+											while true do
+												if ((0 - 0) == v91) then
+													v7 = false;
+													v56();
+													break;
+												end
+											end
+											break;
+										end
+									end
+								end
+								v89 = 1818 - (1703 + 114);
+							end
+						end
+					end
+					v78 = os.clock() - v76;
+					v75 = 2;
+				end
+				if ((703 - (376 + 325)) == v75) then
+					v79 = v8 - v78;
+					if (v79 > (0 - 0)) then
+						task.wait(v79);
+					end
+					break;
+				end
+				if (v75 == (0 - 0)) then
+					v76 = os.clock();
+					v77 = pcall(function()
+						v6:InvokeServer();
+					end);
+					v75 = 1;
+				end
+			end
+		else
+			task.wait(0.15 + 0);
+		end
+	end
+end);
+task.spawn(function()
+	while true do
+		local v66 = 0 - 0;
+		local v67;
+		local v68;
+		local v69;
+		while true do
+			if (v66 == 0) then
+				v67 = 14 - (9 + 5);
+				v68 = nil;
+				v66 = 377 - (85 + 291);
+			end
+			if (v66 == (1266 - (243 + 1022))) then
+				v69 = nil;
+				while true do
+					if ((0 - 0) == v67) then
+						task.wait(1 + 0);
+						v68 = os.clock();
+						v67 = 1181 - (1123 + 57);
+					end
+					if (v67 == (1 + 0)) then
+						v69 = v11 / (v68 - v12);
+						v46.Text = string.format("SPS: %.2f", v69);
+						v67 = 2;
+					end
+					if (v67 == (256 - (163 + 91))) then
+						v11 = 0;
+						v12 = v68;
+						break;
+					end
+				end
+				break;
+			end
+		end
+	end
+end);
+v56();
