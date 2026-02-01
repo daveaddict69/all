@@ -1,56 +1,228 @@
- local UIS=game:       
-                                                                        GetService("UserInputService");local Players=   
-                                                                    game:GetService("Players");local workspace=game:GetService(   
-                                                                "Workspace");local TweenService=game:GetService("TweenService");local   
-                                                            player=Players.LocalPlayer;local enabled=false;local saved={};local firstUse= 
-                                                          true;local startPos=UDim2.new(0.5, -120,0,20);pcall(function() if player:         
-                                                        FindFirstChild("DavislyInteractPos") then startPos=player.DavislyInteractPos.Value;   
-                                                      end end);local gui=Instance.new("ScreenGui");gui.Name="DavislyHub";gui.ResetOnSpawn=false 
-                                                    ;gui.Parent=player:WaitForChild("PlayerGui");local mainContainer=Instance.new("Frame");       
-                                                  mainContainer.Size=UDim2.new(0,260,0,140);mainContainer.Position=startPos;mainContainer.          
-                                                  BackgroundColor3=Color3.fromRGB(15,20,35);mainContainer.BackgroundTransparency=0.1;mainContainer.   
-                                                Active=true;mainContainer.Draggable=true;mainContainer.Parent=gui;local mainCorner=Instance.new(        
-                                                "UICorner");mainCorner.CornerRadius=UDim.new(0,12);mainCorner.Parent=mainContainer;local topBar=Instance. 
-                                              new("Frame");topBar.Size=UDim2.new(1,0,0,40);topBar.BackgroundColor3=Color3.fromRGB(25,35,55);topBar.         
-                                              BorderSizePixel=0;topBar.Parent=mainContainer;local topCorner=Instance.new("UICorner");topCorner.CornerRadius 
-                                            =UDim.new(0,12);topCorner.Parent=topBar;local hubTitle=Instance.new("TextLabel");hubTitle.Size=UDim2.new(1,0,1,0) 
-                                            ;hubTitle.BackgroundTransparency=1;hubTitle.Text="DAVISLY HUB";hubTitle.TextColor3=Color3.fromRGB(0,180,255);       
-                                          hubTitle.TextSize=18;hubTitle.Font=Enum.Font.GothamBold;hubTitle.Parent=topBar;local miniTitle=Instance.new("TextLabel" 
-                                          );miniTitle.Size=UDim2.new(1,0,0,18);miniTitle.Position=UDim2.new(0,0,0,45);miniTitle.BackgroundTransparency=1;miniTitle. 
-                                          Text="Instant Interact";miniTitle.TextColor3=Color3.fromRGB(200,200,220);miniTitle.TextSize=14;miniTitle.Font=Enum.Font.    
-                                          GothamMedium;miniTitle.Parent=mainContainer;local toggleBtn=Instance.new("TextButton");toggleBtn.Size=UDim2.new(1, -40,0,45 
-                                        );toggleBtn.Position=UDim2.new(0,20,0,70);toggleBtn.BackgroundColor3=Color3.fromRGB(40,50,75);toggleBtn.Text="";toggleBtn.      
-                                        AutoButtonColor=true;toggleBtn.Parent=mainContainer;local btnCorner=  --[[==============================]]Instance.new("UICorner" 
-                                        );btnCorner.CornerRadius=UDim.new(0,8);btnCorner.Parent=    --[[============================================]]toggleBtn;local     
-                                        btnText=Instance.new("TextLabel");btnText.Size=UDim2.   --[[======================================================]]new(1,0,1,0);   
-                                      btnText.BackgroundTransparency=1;btnText.Text="OFF";  --[[==========================================================]]btnText.          
-                                      TextColor3=Color3.fromRGB(255,80,80);btnText.       --[[==============================================================]]TextSize=16;    
-                                      btnText.Font=Enum.Font.GothamBold;btnText.Parent=   --[[================================================================]]toggleBtn;local 
-                                       indicator=Instance.new("Frame");indicator.Size=    --[[==================================================================]]UDim2.new(0,  
-                                      12,0,12);indicator.Position=UDim2.new(0,15,0.5, -6) --[[==================================================================]];indicator.       
-                                    BackgroundColor3=Color3.fromRGB(255,80,80);indicator. --[[====================================================================]]              
-                    BorderSizePixel=0;indicator.Parent=toggleBtn;local indicatorCorner=   --[[====================================================================]]Instance.new(   
-              "UICorner");indicatorCorner.CornerRadius=UDim.new(1,0);indicatorCorner.     --[[======================================================================]]Parent=       
-            indicator;local statusText=Instance.new("TextLabel");statusText.Size=UDim2.   --[[======================================================================]]new(1, -40,0, 
-          20);statusText.Position=UDim2.new(0,20,1, -30);statusText.                      --[[======================================================================]]              
-        BackgroundTransparency=1;statusText.Text="RightShift to toggle • Drag to move";   --[[======================================================================]]statusText.   
-        TextColor3=Color3.fromRGB(150,170,200);statusText.TextSize=11;statusText.Font=    --[[======================================================================]]Enum.Font.    
-      Gotham;statusText.Parent=mainContainer;local function savePos() local val=player:   --[[======================================================================]]              
-      FindFirstChild("DavislyInteractPos");if  not val then val=Instance.new("UDim2Value"); --[[==================================================================]]val.Name=       
-      "DavislyInteractPos";val.Parent=player;end val.Value=mainContainer.Position;end       --[[================================================================]]mainContainer:    
-    GetPropertyChangedSignal("Position"):Connect(savePos);local function updateToggle() if  --[[==============================================================]]enabled then      
-    btnText.Text="ON";btnText.TextColor3=Color3.fromRGB(80,255,120);local tween=TweenService: --[[==========================================================]]Create(indicator,   
-    TweenInfo.new(0.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundColor3=Color3. --[[====================================================]]fromRGB(80,255,120)});  
-    tween:Play();toggleBtn.BackgroundColor3=Color3.fromRGB(30,60,45);else btnText.Text="OFF";     --[[==============================================]]btnText.TextColor3=Color3 
-    .fromRGB(255,80,80);local tween=TweenService:Create(indicator,TweenInfo.new(0.3,Enum.EasingStyle. --[[====================================]]Quad,Enum.EasingDirection.Out 
-    ),{BackgroundColor3=Color3.fromRGB(255,80,80)});tween:Play();toggleBtn.BackgroundColor3=Color3.       --[[========================]]fromRGB(40,50,75);end end local       
-    function applyPrompt(p) if  not saved[p] then saved[p]=p.HoldDuration;end p.HoldDuration=(enabled and 0) or saved[p] ;end local function scan() for _,v in ipairs(      
-  workspace:GetDescendants()) do if v:IsA("ProximityPrompt") then applyPrompt(v);end end end workspace.DescendantAdded:Connect(function(v) if v:IsA("ProximityPrompt")    
-  then applyPrompt(v);end end);local hideThread;local function showGui() mainContainer.Visible=true;if firstUse then return;end if hideThread then task.cancel(         
-  hideThread);end hideThread=task.delay(6,function() mainContainer.Visible=false;end);end local function toggle() enabled= not enabled;if firstUse then firstUse=false;   
-  end updateToggle();showGui();scan();local tween=TweenService:Create(toggleBtn,TweenInfo.new(0.1,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Size=UDim2.new(1, -35, 
-  0,42)});tween:Play();task.wait(0.1);local tweenBack=TweenService:Create(toggleBtn,TweenInfo.new(0.1,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Size=UDim2.new(1,  
-  -40,0,45)});tweenBack:Play();end UIS.InputBegan:Connect(function(input,gp) if ( not gp and (input.KeyCode==Enum.KeyCode.RightShift)) then toggle();end if ( not gp and  
-  (input.KeyCode==Enum.KeyCode.RightControl)) then mainContainer.Visible= not mainContainer.Visible;end end);toggleBtn.MouseButton1Click:Connect(toggle);showGui();scan() 
-  ;updateToggle();local UIS=game:GetService("UserInputService");UIS.InputBegan:Connect(function(input) if (input.KeyCode==Enum.KeyCode.F) then mainContainer.Visible= not 
-   mainContainer.Visible;end end);
+local UIS = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local workspace = game:GetService("Workspace")
+local TweenService = game:GetService("TweenService")
+
+local player = Players.LocalPlayer
+
+local enabled = false
+local saved = {}
+local firstUse = true
+
+local startPos = UDim2.new(0.5, -120, 0, 20)
+
+pcall(function()
+    if player:FindFirstChild("DavislyInteractPos") then
+        startPos = player.DavislyInteractPos.Value
+    end
+end)
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "DavislyHub"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local mainContainer = Instance.new("Frame")
+mainContainer.Size = UDim2.new(0, 260, 0, 140)
+mainContainer.Position = startPos
+mainContainer.BackgroundColor3 = Color3.fromRGB(15, 20, 35)
+mainContainer.BackgroundTransparency = 0.1
+mainContainer.Active = true
+mainContainer.Draggable = true
+mainContainer.Parent = gui
+
+local mainCorner = Instance.new("UICorner")
+mainCorner.CornerRadius = UDim.new(0, 12)
+mainCorner.Parent = mainContainer
+
+local topBar = Instance.new("Frame")
+topBar.Size = UDim2.new(1, 0, 0, 40)
+topBar.BackgroundColor3 = Color3.fromRGB(25, 35, 55)
+topBar.BorderSizePixel = 0
+topBar.Parent = mainContainer
+
+local topCorner = Instance.new("UICorner")
+topCorner.CornerRadius = UDim.new(0, 12)
+topCorner.Parent = topBar
+
+local hubTitle = Instance.new("TextLabel")
+hubTitle.Size = UDim2.new(1, 0, 1, 0)
+hubTitle.BackgroundTransparency = 1
+hubTitle.Text = "DAVISLY HUB"
+hubTitle.TextColor3 = Color3.fromRGB(0, 180, 255)
+hubTitle.TextSize = 18
+hubTitle.Font = Enum.Font.GothamBold
+hubTitle.Parent = topBar
+
+local miniTitle = Instance.new("TextLabel")
+miniTitle.Size = UDim2.new(1, 0, 0, 18)
+miniTitle.Position = UDim2.new(0, 0, 0, 45)
+miniTitle.BackgroundTransparency = 1
+miniTitle.Text = "Instant Interact"
+miniTitle.TextColor3 = Color3.fromRGB(200, 200, 220)
+miniTitle.TextSize = 14
+miniTitle.Font = Enum.Font.GothamMedium
+miniTitle.Parent = mainContainer
+
+local toggleBtn = Instance.new("TextButton")
+toggleBtn.Size = UDim2.new(1, -40, 0, 45)
+toggleBtn.Position = UDim2.new(0, 20, 0, 70)
+toggleBtn.BackgroundColor3 = Color3.fromRGB(40, 50, 75)
+toggleBtn.Text = ""
+toggleBtn.AutoButtonColor = true
+toggleBtn.Parent = mainContainer
+
+local btnCorner = Instance.new("UICorner")
+btnCorner.CornerRadius = UDim.new(0, 8)
+btnCorner.Parent = toggleBtn
+
+local btnText = Instance.new("TextLabel")
+btnText.Size = UDim2.new(1, 0, 1, 0)
+btnText.BackgroundTransparency = 1
+btnText.Text = "OFF"
+btnText.TextColor3 = Color3.fromRGB(255, 80, 80)
+btnText.TextSize = 16
+btnText.Font = Enum.Font.GothamBold
+btnText.Parent = toggleBtn
+
+local indicator = Instance.new("Frame")
+indicator.Size = UDim2.new(0, 12, 0, 12)
+indicator.Position = UDim2.new(0, 15, 0.5, -6)
+indicator.BackgroundColor3 = Color3.fromRGB(255, 80, 80)
+indicator.BorderSizePixel = 0
+indicator.Parent = toggleBtn
+
+local indicatorCorner = Instance.new("UICorner")
+indicatorCorner.CornerRadius = UDim.new(1, 0)
+indicatorCorner.Parent = indicator
+
+local statusText = Instance.new("TextLabel")
+statusText.Size = UDim2.new(1, -40, 0, 20)
+statusText.Position = UDim2.new(0, 20, 1, -30)
+statusText.BackgroundTransparency = 1
+statusText.Text = "RightShift to toggle • Drag to move"
+statusText.TextColor3 = Color3.fromRGB(150, 170, 200)
+statusText.TextSize = 11
+statusText.Font = Enum.Font.Gotham
+statusText.Parent = mainContainer
+
+local function savePos()
+    local val = player:FindFirstChild("DavislyInteractPos")
+    if not val then
+        val = Instance.new("UDim2Value")
+        val.Name = "DavislyInteractPos"
+        val.Parent = player
+    end
+    val.Value = mainContainer.Position
+end
+
+mainContainer:GetPropertyChangedSignal("Position"):Connect(savePos)
+
+local function updateToggle()
+    if enabled then
+        btnText.Text = "ON"
+        btnText.TextColor3 = Color3.fromRGB(80, 255, 120)
+        
+        local tween = TweenService:Create(indicator, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            BackgroundColor3 = Color3.fromRGB(80, 255, 120)
+        })
+        tween:Play()
+        
+        toggleBtn.BackgroundColor3 = Color3.fromRGB(30, 60, 45)
+    else
+        btnText.Text = "OFF"
+        btnText.TextColor3 = Color3.fromRGB(255, 80, 80)
+        
+        local tween = TweenService:Create(indicator, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            BackgroundColor3 = Color3.fromRGB(255, 80, 80)
+        })
+        tween:Play()
+        
+        toggleBtn.BackgroundColor3 = Color3.fromRGB(40, 50, 75)
+    end
+end
+
+local function applyPrompt(p)
+    if not saved[p] then
+        saved[p] = p.HoldDuration
+    end
+    p.HoldDuration = enabled and 0 or saved[p]
+end
+
+local function scan()
+    for _, v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("ProximityPrompt") then
+            applyPrompt(v)
+        end
+    end
+end
+
+workspace.DescendantAdded:Connect(function(v)
+    if v:IsA("ProximityPrompt") then
+        applyPrompt(v)
+    end
+end)
+
+local hideThread
+local function showGui()
+    mainContainer.Visible = true
+    
+    if firstUse then
+        return
+    end
+    
+    if hideThread then
+        task.cancel(hideThread)
+    end
+    
+    hideThread = task.delay(6, function()
+        mainContainer.Visible = false
+    end)
+end
+
+local function toggle()
+    enabled = not enabled
+    
+    if firstUse then
+        firstUse = false
+    end
+    
+    updateToggle()
+    showGui()
+    scan()
+    
+    local tween = TweenService:Create(toggleBtn, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+        Size = UDim2.new(1, -35, 0, 42)
+    })
+    tween:Play()
+    
+    task.wait(0.1)
+    
+    local tweenBack = TweenService:Create(toggleBtn, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+        Size = UDim2.new(1, -40, 0, 45)
+    })
+    tweenBack:Play()
+end
+
+UIS.InputBegan:Connect(function(input, gp)
+    if not gp and input.KeyCode == Enum.KeyCode.RightShift then
+        toggle()
+    end
+    
+    if not gp and input.KeyCode == Enum.KeyCode.RightControl then
+        mainContainer.Visible = not mainContainer.Visible
+    end
+end)
+
+toggleBtn.MouseButton1Click:Connect(toggle)
+
+showGui()
+scan()
+updateToggle()
+
+local UIS = game:GetService("UserInputService")
+UIS.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.F then
+        mainContainer.Visible = not mainContainer.Visible
+    end
+end)
